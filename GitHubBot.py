@@ -11,7 +11,12 @@ class GitHubBot(object):
         self.endpoint = "https://api.github.com/graphql"
 
         # GitHub Personal Access Token
-        self.auth = {"Authorization": "Bearer 34815671c4b8fa5cb178f5746555a9815d8992e0"}
+        pat_file = open('personal_access_token', 'r')
+
+        bearer_token = "Bearer %s" % pat_file.readline().replace('\n', '')
+        self.auth = {"Authorization": bearer_token}
+
+        pat_file.close()
 
         # GraphQL variables (initialized to default repository)
         self.variables = {"repo_owner": "mantidproject", "repo_name": "mantid"}
